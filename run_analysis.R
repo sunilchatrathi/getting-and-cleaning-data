@@ -60,5 +60,3 @@ names(tidy_dataset) <- c("subject", "activityname", "mean-tbodyacc-x","mean-tbod
 independent_tidy_set <- tidy_dataset %>% group_by(subject, activityname) %>% summarise_all(mean)
 
 write.table(independent_tidy_set,file="independent_tidy_set.txt",row.name=FALSE,col.names = TRUE,quote=FALSE)
-
-write.table(names(independent_tidy_set),file="names.txt",quote=FALSE)
