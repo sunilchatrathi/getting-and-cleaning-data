@@ -1,4 +1,3 @@
-setwd("C:\\Users\\Sunil Chatrathi\\Downloads\\getdata_projectfiles_UCI HAR Dataset\\UCI HAR Dataset\\")
 
 library(dplyr)
 
@@ -9,9 +8,9 @@ features <- read.table("features.txt",header = FALSE, col.names=c("columnnumber"
 activity_labels <- read.table("activity_labels.txt",header = FALSE, col.names=c("activitynumber","activityname")) 
 
 ##Training Data
-train_features <- read.table('train\\X_train.txt', header = FALSE)
-train_subjects <- read.table('train\\subject_train.txt', header = FALSE, col.names=c("subject"))
-train_labels <- read.table('train\\y_train.txt', header = FALSE, col.names=c("activitynumber"))
+train_features <- read.table('train/X_train.txt', header = FALSE)
+train_subjects <- read.table('train/subject_train.txt', header = FALSE, col.names=c("subject"))
+train_labels <- read.table('train/y_train.txt', header = FALSE, col.names=c("activitynumber"))
 
 ##Assigning column names
 names(train_features) <- features$featurename
@@ -20,9 +19,9 @@ names(train_features) <- features$featurename
 train_data <- cbind(train_subjects,train_labels,train_features)
 
 ##Test data
-test_features <- read.table('test\\X_test.txt', header = FALSE)
-test_subjects <- read.table('test\\subject_test.txt', header = FALSE, col.names=c("subject"))
-test_labels <- read.table('test\\y_test.txt', header = FALSE, col.names=c("activitynumber"))
+test_features <- read.table('test/X_test.txt', header = FALSE)
+test_subjects <- read.table('test/subject_test.txt', header = FALSE, col.names=c("subject"))
+test_labels <- read.table('test/y_test.txt', header = FALSE, col.names=c("activitynumber"))
 
 ##Assigning column names
 names(test_features) <- features$featurename
