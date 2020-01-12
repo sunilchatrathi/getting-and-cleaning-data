@@ -41,22 +41,19 @@ cols_to_keep <- c(c("subject", "activityname"),grep("mean\\()|std\\()",names(mer
 tidy_dataset <- merged_data[,cols_to_keep]
 
 ##Changing names to be more descriptive
-names(tidy_dataset) <- c("subject", "activityname", "mean-tbodyacc-x","mean-tbodyacc-y","mean-tbodyacc-z", 
-                      "stddev-tbodyacc-x", "stddev-tbodyacc-y", "stddev-tbodyacc-z", "mean-tgravityacc-x",
-                      "mean-tgravityacc-y","mean-tgravityacc-z", "stddev-tgravityacc-x", "stddev-tgravityacc-y", 
-                      "stddev-tgravityacc-z", "mean-tbodyaccjerk-x","mean-tbodyaccjerk-y","mean-tbodyaccjerk-z",
-                      "stddev-tbodyaccjerk-x", "stddev-tbodyaccjerk-y","stddev-tbodyaccjerk-z", "mean-tbodygyro-x", 
-                      "mean-tbodygyro-y", "mean-tbodygyro-z", "stddev-tbodygyro-x", "stddev-tbodygyro-y", "stddev-tbodygyro-z", 
-                      "mean-tbodygyrojerk-x", "mean-tbodygyrojerk-y", "mean-tbodygyrojerk-z", "stddev-tbodygyrojerk-x", 
-                      "stddev-tbodygyrojerk-y", "stddev-tbodygyrojerk-z", "mean-tbodyaccmag", "stddev-tbodyaccmag", "mean-tgravityaccmag", 
-                      "stddev-tgravityaccmag", "mean-tbodyaccjerkmag", "stddev-tbodyaccjerkmag", "mean-tbodygyromag", "stddev-tbodygyromag",
-                      "mean-tbodygyrojerkmag", "stddev-tbodygyrojerkmag", "mean-fbodyacc-x", "mean-fbodyacc-y", "mean-fbodyacc-z", "stddev-fbodyacc-x", 
-                      "stddev-fbodyacc-y", "stddev-fbodyacc-z", "mean-fbodyaccjerk-x","mean-fbodyaccjerk-y", "mean-fbodyaccjerk-z", "stddev-fbodyaccjerk-x", 
-                      "stddev-fbodyaccjerk-y", "stddev-fbodyaccjerk-z", "mean-fbodygyro-x", "mean-fbodygyro-y", "mean-fbodygyro-z", "stddev-fbodygyro-x", 
-                      "stddev-fbodygyro-y", "stddev-fbodygyro-z", "mean-fbodyaccmag", "stddev-fbodyaccmag", "mean-fbodyaccjerkmag", "stddev-fbodyaccjerkmag", 
-                      "mean-fbodygyromag", "stddev-fbodygyromag", "mean-fbodygyrojerkmag", "stddev-fbodygyrojerkmag" )
+names(tidy_dataset)<-gsub("^f", "Frequency", names(tidy_dataset))
+names(tidy_dataset)<-gsub("^t", "Time", names(tidy_dataset))
+names(tidy_dataset)<-gsub("Acc", "Accelerometer", names(tidy_dataset))
+names(tidy_dataset)<-gsub("BodyBody", "Body", names(tidy_dataset))
+names(tidy_dataset)<-gsub("Gyro", "Gyroscope", names(tidy_dataset))
+names(tidy_dataset)<-gsub("Mag", "Magnitude", names(tidy_dataset))
+names(tidy_dataset)<-gsub("-mean\\()", "Mean", names(tidy_dataset), ignore.case = TRUE)
+names(tidy_dataset)<-gsub("-std\\()", "STD", names(tidy_dataset), ignore.case = TRUE)
+names(tidy_dataset)<-gsub("-freq", "Frequency", names(tidy_dataset), ignore.case = TRUE)
 
-##Calulating avergae of each variable for each subject and activity to creade 
+
+##Calulating avergae of each measurement variable for each subject and activity to creade 
 independent_tidy_set <- tidy_dataset %>% group_by(subject, activityname) %>% summarise_all(mean)
 
+##Outputting final data set to a text file
 write.table(independent_tidy_set,file="independent_tidy_set.txt",row.name=FALSE,col.names = TRUE,quote=FALSE)
